@@ -1,0 +1,145 @@
+{   "baseUrl": "http://127.0.0.1:8000",
+    "uiSchema" : {
+    "action": {
+      "ui:label": false,
+      "ui:classnames": "wrap"
+    },
+    "protocol": {
+      "ui:label": false,
+      "ui:classnames": "wrap"
+    },
+    "src_ip": {
+      "ui:label": false,
+      "ui:classnames": "wrap",
+      "ui:emptyValue": "any",
+      "ui:placeholder": "any"
+    },
+    "not_dst_ip": {
+      "ui:label": false,
+      "ui:widget": "select",
+      "ui:classnames": "wrap"
+    },
+    "not_dst_port": {
+      "ui:label": false,
+      "ui:widget": "select"
+    },
+    "not_src_ip": {
+      "ui:label": false,
+      "ui:widget": "select"
+    },
+    "not_src_port": {
+      "ui:label": false,
+      "ui:widget": "select"
+    },
+    "dst_ip": {
+      "ui:label": false,
+      "ui:classnames": "wrap",
+      "ui:emptyValue": "any",
+      "ui:placeholder": "any"
+    },
+    "src_port": {
+      "ui:label": false,
+      "ui:emptyValue": "any",
+      "ui:placeholder": "any",
+      "ui:help": "format 1-65535[:1-65535] example: 1234 or 10:200"
+    },
+    "dst_port": {
+      "ui:label": false,
+      "ui:emptyValue": "any",
+      "ui:placeholder": "any",
+      "ui:help": "format 1-65535[:1-65535] example: 1234 or 10:200"
+    },
+    "direction":{
+      "ui:options": {
+        "label": false
+      }
+    },
+    "options":{
+      "ui:label": false,
+      "items":{"ui:label": false}
+    }
+    
+  },
+  "schema": {
+    "definitions": {
+      "directions": {
+        "type": "string",
+        "enum": ["->", "<>"],
+        "default": "->"
+      },
+      "actions": {
+        "type": "string",
+        "enum": "!!!!!!!!actions",
+        "default": "alert"
+      },
+      "protocols": {
+        "type": "string",
+        "enum": "!!!!!!!!protocols.concat(services)",
+        "default": "TCP"
+      },
+      "services": {
+        "type": "string",
+        "enum": "!!!!!!!!services",
+        "default": "http"
+      },
+      "options": {
+        "title": " ",
+        "type": "object",
+        "properties": {
+          "option": {
+            "title": " ",
+            "type": "string",
+            "enum": "!!!!!!!!options",
+            "default": "content"
+          }
+        },
+        "required": [
+          "option"
+        ],
+        "dependencies": {
+          "option": {
+            "oneOf": "!!!!!!!keword_options"
+          }
+        }
+      },
+      "exclude":
+      { 
+        "type": "boolean", 
+        "default": false,
+        "title": "exclude:" ,
+       "oneOf": [
+        {
+          "title": "!",
+          "const": true
+        },{
+          "title": " ",
+          "const": false
+        }
+      ]}
+    },
+    "type": "object",
+
+    "properties": {
+      "action": { "$ref": "#/definitions/actions" },
+      "protocol": { "title": "dsfsd ", "$ref": "#/definitions/protocols" },
+      "not_src_ip": { "$ref": "#/definitions/exclude" },
+      "src_ip": { "title": " ",  "type": "string" },
+      "not_src_port": {  "$ref": "#/definitions/exclude" },
+      "src_port": { "title": " ", "type": "string", "pattern": "!!!!!!!!portRange" },
+      "direction": { "title": " ",  "$ref": "#/definitions/directions" },
+      "not_dst_ip": {  "$ref": "#/definitions/exclude" },
+      "dst_ip": { "title": " ","type": "string" },
+      "not_dst_port": {  "$ref": "#/definitions/exclude" },
+      "dst_port": {"title": " ", "type": "string", "pattern": "!!!!!!!!portRange" },
+      "options": {
+        "title": "options", 
+        "type": "array",
+        "items": 
+          {
+            "$ref": "#/definitions/options"
+          }
+        
+      }
+      ,"unparsed_data" : {"type": "string" }
+    }
+  }}

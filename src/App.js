@@ -1,24 +1,15 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import SnortForm from './components/SnortForm/SnortForm';
+import { FormProvider} from "./components/SnortForm/FormProvider";
+import TextArea from "./components/SnortForm/SnortTextArea"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <FormProvider>
+        <TextArea />
+        <SnortForm className="App-header"></SnortForm>
+      </FormProvider>
   );
 }
 
