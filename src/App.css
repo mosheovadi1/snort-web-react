@@ -1,3 +1,67 @@
+/* React JSON Schema Form CSS */
+
+/* Form Container */
+.react-jsonschema-form {
+  margin: 20px;
+}
+
+/* Form Fields */
+.react-jsonschema-form .form-group {
+  margin-bottom: 20px;
+}
+
+/* Label */
+.react-jsonschema-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Input Fields */
+.react-jsonschema-form input[type="text"],
+.react-jsonschema-form input[type="number"],
+.react-jsonschema-form input[type="email"],
+.react-jsonschema-form input[type="password"],
+.react-jsonschema-form textarea,
+.react-jsonschema-form select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+/* Switches */
+.react-jsonschema-form .switch-container {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  vertical-align: middle;
+}
+
+.react-jsonschema-form .switch-container input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.react-jsonschema-form .switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.react-jsonschema-form .switch-slider:before {
+  position: absolute;}
 /* .App {
 } */
 
@@ -20,6 +84,9 @@
   display: flex;
   flex-direction: row;
   background-color: white;
+}
+#root{
+  width: min-content;
 }
 .App-link {
   color: #61dafb;
@@ -77,6 +144,18 @@
 }
 button{
   min-height: 2vh;
+  min-width: 4vh;
+  margin: 1pt;
+}
+.array-item{
+  display: flex;
+}
+.col-xs-9{
+  width:-webkit-fill-available;
+  display: grid;
+}
+.col-xs-3.array-item-toolbox{
+  min-width:fit-content;
 }
 .text-danger{
   color: red;
@@ -89,10 +168,10 @@ button{
 .field-string {
 } */
 i.glyphicon {
-  display: none;
+  display:none;
 }
 .btn-add::after {
-  content: '+';
+  content: '➕';
 }
 .array-item-copy::after {
   content: '➕';
@@ -105,4 +184,7 @@ i.glyphicon {
 }
 .array-item-remove::after {
   content: '⛔';
+}
+.btn-group{
+  display:table-caption;
 }

@@ -1,0 +1,27 @@
+:root {
+    --color-blue: rgb(12, 12, 155);
+    --color-light-gray: rgb(243, 243, 243);
+  }
+  
+.loader {
+  border: 5px solid #f3f3f3;
+  border-top: 5px transparent var(--color-blue);
+  border-radius: 40%;
+  width: 300px;
+  height: 150px;
+  animation: spin 2s linear infinite;
+  background: url("../assets/img/snort.jpeg") 50% 50% no-repeat;
+  margin: 2px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: scale(50%);
+  }
+   50% {
+    transform: scale(90%);
+  } 
+  100% {
+    transform: scale(50%);
+  }
+}

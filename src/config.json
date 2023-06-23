@@ -11,7 +11,6 @@
     "src_ip": {
       "ui:label": false,
       "ui:classnames": "wrap",
-      "ui:emptyValue": "any",
       "ui:placeholder": "any"
     },
     "not_dst_ip": {
@@ -34,18 +33,15 @@
     "dst_ip": {
       "ui:label": false,
       "ui:classnames": "wrap",
-      "ui:emptyValue": "any",
       "ui:placeholder": "any"
     },
     "src_port": {
       "ui:label": false,
-      "ui:emptyValue": "any",
       "ui:placeholder": "any",
       "ui:help": "format 1-65535[:1-65535] example: 1234 or 10:200"
     },
     "dst_port": {
       "ui:label": false,
-      "ui:emptyValue": "any",
       "ui:placeholder": "any",
       "ui:help": "format 1-65535[:1-65535] example: 1234 or 10:200"
     },
@@ -56,8 +52,11 @@
     },
     "options":{
       "ui:label": false,
+      "ui:options":  {
+        "orderable": false
+      },
       "items":{"ui:label": false}
-    }
+    }      
     
   },
   "schema": {

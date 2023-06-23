@@ -3,7 +3,7 @@ import keyBy from "lodash/keyBy";
 import { fetchKeywords, fetchStage } from "./ruleActions"
 
 const portRange = "^((any)|([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(?::([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?)$"
-
+const ipRange = "(^\\$.*|^any$|^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\x2e(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\x2e(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\x2e(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\x2f[0-9][0-9]?$)"
 function createDynamicSchema(text, optionName, optionsData, useTitle, index, uiSchema) {
     if (index) {
         optionName += `${index}`
@@ -31,7 +31,7 @@ function createDynamicSchema(text, optionName, optionsData, useTitle, index, uiS
             return [optionName, {
                 "type": "boolean",
                 "default": false,
-                title: "exclude:",
+                title: " ",
                 "oneOf": [
                     {
                         "title": "!",
@@ -98,6 +98,21 @@ const protocols = data[0].error ? ["error"] :fetchStage(data, "protocol", "field
 const services = data[0].error ? ["error"] :fetchStage(data, "service", "fields.name")
 const options = data[0].error ? [] :fetchStage(data, "options", "fields.name")
 
+export function transformErrors(errors) {
+    console.log(errors)
+    return errors.map(error => {
+      if (error.name === "pattern" && (error.property === ".src_port"|| error.property === ".dst_port")) {
+        error.stack = error.stack.replace(error.message, "bad port")
+        error.message = "bad port or bad port range"
+      }
+      if (error.name === "pattern" && (error.property === ".src_ip"|| error.property === ".dst_ip")) {
+        error.stack = error.stack.replace(error.message, "bad ip")
+        error.message = "bad ip must be of form x.x.x.x/x"
+      }
+      return error;
+    });
+  }
+
 export const optionsData = data
 export const uiSchema = configData.uiSchema; 
 const keword_options = options.map((op) => setoption(op, data, uiSchema))
@@ -108,7 +123,9 @@ theSchema.definitions.services.enum = services
 theSchema.definitions.options.properties.option.enum = options
 theSchema.definitions.options.dependencies.option.oneOf = keword_options
 theSchema.properties.src_port.pattern = portRange
+theSchema.properties.src_ip.pattern = ipRange
 theSchema.properties.dst_port.pattern = portRange
+theSchema.properties.dst_ip.pattern = ipRange
 export const initFormData = {
     "options": [{ "option": "content", "content": false },
     { option: 'tag', tag: 'session', tag_modifer: { packets: 10 } }]

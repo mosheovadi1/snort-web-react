@@ -1,10 +1,10 @@
 import { updateRule } from "../../utils/ruleActions";
 import css from "./SnortForm.module.css";
-import { optionsData, theSchema, uiSchema } from "../../utils/formActions";
+import { optionsData, theSchema, uiSchema, transformErrors } from "../../utils/formActions";
 import Form from "@rjsf/core";
 import validator from '@rjsf/validator-ajv8';
 import React, { useEffect, useContext } from 'react';
-import { FormContext } from "./FormProvider";
+import { FormContext } from "../FormProvider/FormProvider";
 
 
 const SnortForm = () => {
@@ -21,6 +21,7 @@ const SnortForm = () => {
   }, [setError])
   return (!([optionsData].some((arr) => arr.length === 0))) ? (<Form
     className={css["react-jsonschema-form"]}
+    transformErrors={transformErrors}
       uiSchema={uiSchema}
       schema={theSchema}
       validator={validator}

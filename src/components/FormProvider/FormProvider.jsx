@@ -1,5 +1,4 @@
 import React, { useState, useMemo, createContext, useEffect } from "react";
-//import css from "./SearchPage.module.css";
 import { optionsData, initFormData } from "../../utils/formActions";
 import { get_current_rule, updateKW } from "../../utils/ruleActions";
 const FormContext = createContext();
@@ -55,7 +54,6 @@ const FormProvider = ({ children }) => {
     );
     const value = { ...functions, ...dataVars }
     return (
-        //css["search-form"]
         <FormContext.Provider value={value} >{children}</FormContext.Provider>
     );
 };

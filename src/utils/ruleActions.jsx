@@ -40,31 +40,32 @@ export const get_current_rule = async (path) => {
         return ""
     }
     const rule_id = path.split("/snortrule/")[1].split("/")[0]
-    
+
     const csrftoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
     const getruleurl = configData.baseUrl + `/get_rule_update/${rule_id}`
-    const response = await fetch(`${getruleurl}/`,{
+    const response = await fetch(`${getruleurl}/`, {
         credentials: 'include',
         method: 'POST',
         mode: 'same-origin',
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'X-CSRFToken': csrftoken
-        }})
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+        }
+    })
     const data = await response.text()
     return data
 }
 
 export const fetchKeywords = async () => {
     const url = configData.baseUrl + "/get"
-    const response = await fetch(`${url}/`).catch((e)=> {console.log(e)})
-    if (response){
+    const response = await fetch(`${url}/`).catch((e) => { console.log(e) })
+    if (response) {
         const data = await response.json()
         return data
     }
-    else{
-        return [{"error": "ERROR cannot retrive data from server"}]
+    else {
+        return [{ "error": "ERROR cannot retrive data from server" }]
     }
 }
 
@@ -73,4 +74,18 @@ export const fetchStage = (data, stage, filedPath) => {
 }
 
 
+const getPcaps = () => ["test"]//[...document.getElementById("id_pcap_sanity_check_to").options].map(o => o.text)
 
+export const checkPcaps = (content, setResult, setLoaded) => {
+    const myBody = JSON.stringify({ "pcaps": getPcaps(), "rule": content })
+    const url = configData.baseUrl + "/check_pcap/";
+    fetch(url, { body: myBody, method: "post", "Content-Type": "application/json", 'Accept': 'application/json' }).then((response) => {
+        response.json().then(
+            (data) => {
+                setResult(data);
+                setLoaded()
+            }
+        )
+    }).catch((e) => { console.log(e) });
+
+}
