@@ -13,7 +13,7 @@ export const updateRule = async (currData, setError, setFormContent) => {
         setError("illegal form data, please fix");
     }
     if (data) {
-        console.log(data)
+        setError("");
         setFormContent(data["content"]);
     }
 };
@@ -74,7 +74,15 @@ export const fetchStage = (data, stage, filedPath) => {
 }
 
 
-const getPcaps = () => ["test"]//[...document.getElementById("id_pcap_sanity_check_to").options].map(o => o.text)
+const getPcaps = () => {
+        try
+        {
+            return [...document.getElementById("id_pcap_sanity_check_to").options].map(o => o.text)
+        }
+        catch (e) {
+            return ["test"]
+        }
+    }
 
 export const checkPcaps = (content, setResult, setLoaded) => {
     const myBody = JSON.stringify({ "pcaps": getPcaps(), "rule": content })

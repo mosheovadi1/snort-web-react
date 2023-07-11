@@ -24,14 +24,25 @@ const RunScan = () => {
     let returnData = []
     let errData = []
     if (popUpData) {
-        returnData = popUpData.stdout.map((d) => Object.values(d)[0].replace("pcap DAQ configured to read-file.", "").split(/\n/))
-        errData = popUpData.stderr.map((d) => Object.values(d)[0])
+        returnData = popUpData.stdout
+        errData = popUpData.stderr
     }
     return <>
         <img alt="scan" style={{ "width": "50px" }} src={snortImg} onClick={clickTrigger}></img>
         <img alt="clean" style={{ "width": "50px" }} src={clean} onClick={cleanTrigger}></img>
         <Loader isLoading={isLoading}>
-            {returnData.map((item) => (item.split(/\n/).map((s => <span>{s}<br></br></span>))))}
+         {returnData.map((item) => {
+                console.log(item)
+                return item.split(/\n/).map(
+                    (s) => {
+                        console.log(s)
+                        return < span > {s}<br></br></span>
+                    }
+                )
+            }
+
+            )
+            }
             <br />
             {errData.map((item) => (item.split(/\n/).map((s => <span>{s}<br></br></span>))))}
         </Loader>
